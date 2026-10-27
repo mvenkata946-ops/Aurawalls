@@ -26,6 +26,11 @@ jobs:
       - name: Generate Android Project Files
         run: flutter create . --org com.aurawalls.app --project-name aurawalls --platforms=android
 
+      - name: Add Internet Permission
+        run: |
+          MANIFEST="android/app/src/main/AndroidManifest.xml"
+          sed -i '/<application/i <uses-permission android:name="android.permission.INTERNET"/>' "$MANIFEST"
+
       - name: Install Dependencies
         run: flutter pub get
 
@@ -37,4 +42,3 @@ jobs:
         with:
           name: app-release
           path: build/app/outputs/flutter-apk/app-release.apk
-          
